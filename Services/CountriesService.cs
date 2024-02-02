@@ -6,7 +6,7 @@ namespace Services
 {
     public class CountriesService : ICountryService
     {
-        private List<Country> _countries;
+        private readonly List<Country> _countries;
         public CountriesService()
         {
             _countries = [];
@@ -24,6 +24,11 @@ namespace Services
 
             _countries.Add(country);
             return country.ToCountryResponse();
+        }
+
+        public List<CountryReponse> GetAllCountries()
+        {
+            throw new NotImplementedException();
         }
     }
 }
