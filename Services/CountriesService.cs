@@ -28,7 +28,8 @@ namespace Services
 
         public List<CountryReponse> GetAllCountries()
         {
-            throw new NotImplementedException();
+            return _countries.Select(country => country.ToCountryResponse())
+                             .ToList();
         }
     }
 }
