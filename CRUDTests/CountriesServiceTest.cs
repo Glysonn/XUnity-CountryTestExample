@@ -13,6 +13,8 @@ namespace CRUDTests
             _countryService = new CountriesService();
         }
 
+        #region AddCountry Method
+
         [Fact]
         public void AddCountry_GivenCountryIsNull()
         {
@@ -68,9 +70,49 @@ namespace CRUDTests
 
             // Act
             var countryResponse = _countryService.AddCountry(countryRequest);
+            var allCountries = _countryService.GetAllCountries();
 
             // Assert
             Assert.True(countryResponse.CountryId != Guid.Empty);
+            Assert.Contains(countryResponse, allCountries);
         }
+
+        #endregion
+
+        #region GetAllCountries Method
+
+        [Fact]
+        public void GetAllCountries_CountriesListIsEmpty()
+        {
+            // Act
+            var registeredCountries = _countryService.GetAllCountries();
+
+            // Assert
+            Assert.Empty(registeredCountries);
+        }
+
+        [Fact]
+        public void GetAllCountries_AddFewCountries()
+        {
+            // Arrange
+            var countriesToAdd = new List<CountryAddRequest>()
+            {
+                new() { CountryName = "BRAZIL" },
+                new() { CountryName = "SINGAPORE"},
+                new() { CountryName = "CHINA"},
+            };
+
+            // Act
+            var addedCountries = new List<CountryReponse>();
+            
+            foreach (var country in countriesToAdd)
+                addedCountries.Add(_countryService.AddCountry(country));
+
+            // Assert
+            var countryList = _countryService.GetAllCountries();
+            Assert.All(addedCountries, country => Assert.Contains(country, countryList));
+
+        }
+        #endregion
     }
 }
