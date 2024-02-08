@@ -121,11 +121,11 @@ namespace CRUDTests
         {
             // Arrange
             Guid? countryId = null;
-            var emptyGuid = Guid.Empty;
+            var emptyCountryId = Guid.Empty;
             
             // Act
             var retrievedCountry = _countryService.GetCountryById(countryId);
-            var emptyGuidretrievedCountry = _countryService.GetCountryById(emptyGuid);
+            var emptyGuidretrievedCountry = _countryService.GetCountryById(emptyCountryId);
 
             // Assert
             Assert.Null(retrievedCountry);

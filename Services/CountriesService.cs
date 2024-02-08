@@ -34,7 +34,13 @@ namespace Services
 
         public CountryReponse? GetCountryById(Guid? countryId)
         {
-            throw new NotImplementedException();
+            if (countryId is null || countryId == Guid.Empty)
+                return null;
+
+            var matchingCountry = _countries.Find(x => x.CountryId == countryId);
+
+            var countryResponse = matchingCountry?.ToCountryResponse();
+            return countryResponse;
         }
     }
 }
