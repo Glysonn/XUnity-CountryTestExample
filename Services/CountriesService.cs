@@ -31,5 +31,16 @@ namespace Services
             return _countries.Select(country => country.ToCountryResponse())
                              .ToList();
         }
+
+        public CountryReponse? GetCountryById(Guid? countryId)
+        {
+            if (countryId is null || countryId == Guid.Empty)
+                return null;
+
+            var matchingCountry = _countries.Find(x => x.CountryId == countryId);
+
+            var countryResponse = matchingCountry?.ToCountryResponse();
+            return countryResponse;
+        }
     }
 }
