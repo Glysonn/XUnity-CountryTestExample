@@ -114,5 +114,37 @@ namespace CRUDTests
 
         }
         #endregion
+
+        #region GetCountryById
+        [Fact]
+        public void GetCountryById_NullOrEmptyCountryId()
+        {
+            // Arrange
+            Guid? countryId = null;
+            var emptyGuid = Guid.Empty;
+            
+            // Act
+            var retrievedCountry = _countryService.GetCountryById(countryId);
+            var emptyGuidretrievedCountry = _countryService.GetCountryById(emptyGuid);
+
+            // Assert
+            Assert.Null(retrievedCountry);
+            Assert.Null(emptyGuidretrievedCountry);
+        }
+
+        [Fact]
+        public void GetCountryById_ValidCountryId()
+        {
+            // Arrange
+            var countryToAdd = new CountryAddRequest() { CountryName = "BRAZIL" };
+            var countryResponse = _countryService.AddCountry(countryToAdd);
+
+            // Act
+            var retrievedCountry = _countryService.GetCountryById(countryResponse.CountryId);
+
+            // Assert
+            Assert.Equal(countryResponse, retrievedCountry);
+        }
+        #endregion
     }
 }
