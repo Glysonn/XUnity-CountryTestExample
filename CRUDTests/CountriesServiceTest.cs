@@ -111,8 +111,8 @@ namespace CRUDTests
             // Assert
             var countryList = _countryService.GetAllCountries();
             Assert.All(addedCountries, country => Assert.Contains(country, countryList));
-
         }
+      
         #endregion
 
         #region GetCountryById
