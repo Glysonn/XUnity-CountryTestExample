@@ -1,8 +1,4 @@
-﻿using ServiceContracts;
-using ServiceContracts.DTO;
-using Services;
-
-namespace CRUDTests
+﻿namespace CRUDTests
 {
     public class CountriesServiceTest
     {
