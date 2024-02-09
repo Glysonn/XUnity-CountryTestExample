@@ -11,7 +11,7 @@ namespace ServiceContracts.DTO
         public string? Name { get; set; }
         public string? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public Gender? Gender { get; set; }
+        public GenderOption? Gender { get; set; }
         public Guid? CountryId { get; set; }
         public string? Address { get; set; }
         public bool? ReceiveNewsletters { get; set; }

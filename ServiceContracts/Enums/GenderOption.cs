@@ -1,6 +1,6 @@
 ﻿namespace ServiceContracts.Enums
 {
-    public enum Gender
+    public enum GenderOption
     {
         Male,
         Female,

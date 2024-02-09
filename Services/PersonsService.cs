@@ -4,9 +4,9 @@ using ServiceContracts.DTO;
 
 namespace Services
 {
-    public class PersonsSerivce : IPersonService
+    public class PersonsService : IPersonService
     {
-        public PersonResponse AddPerson(PersonAddRequest personToAdd)
+        public PersonResponse AddPerson(PersonAddRequest? personToAdd)
         {
             throw new NotImplementedException();
         }

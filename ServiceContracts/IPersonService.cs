@@ -12,7 +12,7 @@ namespace ServiceContracts
         /// </summary>
         /// <param name="personToAdd">PersonAddRequest object to add into the list.</param>
         /// <returns>The same person details as a PersonResponse object</returns>
-        PersonResponse AddPerson(PersonAddRequest personToAdd);
+        PersonResponse AddPerson(PersonAddRequest? personToAdd);
 
         /// <summary>
         /// Retrieves all persons.
