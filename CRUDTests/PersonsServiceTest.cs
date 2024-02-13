@@ -36,10 +36,13 @@ namespace CRUDTests
         public void AddPerson_GivenEmailIsInvalid()
         {
             // Arrange
-            var personToAdd = new PersonAddRequest() { Email = "validEmail@gmail.com" };
+            var personToAdd = new PersonAddRequest();
 
             // Act and Assert
-            Assert.Throws<FormatException>(() => new MailAddress(personToAdd.Email));
+            Assert.Throws<FormatException>(() =>
+            {
+                personToAdd.Email = new MailAddress("invalid@.com");
+            });
         }
 
         [Fact]
@@ -49,7 +52,7 @@ namespace CRUDTests
             var personToAdd = new PersonAddRequest()
             {
                 Name = "Example Person",
-                Email = "example@email.com",
+                Email = new MailAddress("example@email.com"),
                 DateOfBirth = DateTime.Now,
                 Gender = GenderOption.Male,
                 CountryId = Guid.NewGuid(),
