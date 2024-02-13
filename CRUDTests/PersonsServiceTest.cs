@@ -23,18 +23,13 @@ namespace CRUDTests
         }
 
         [Fact]
-        public void AddPerson_GivenPersonNameIsNullOrEmpty()
+        public void AddPerson_GivenPersonNameIsEmpty()
         {
             // Arrange
-            var personToAddNullName = new PersonAddRequest() { Name = null };
             var personToAddEmptyName = new PersonAddRequest() { Name = string.Empty };
 
             // Assert and Act
-            Assert.Throws<ArgumentException>(() =>
-            {
-                _personService.AddPerson(personToAddNullName);
-                _personService.AddPerson(personToAddEmptyName);
-            });
+            Assert.Throws<ArgumentException>(() => _personService.AddPerson(personToAddEmptyName));
         }
 
         [Fact]
