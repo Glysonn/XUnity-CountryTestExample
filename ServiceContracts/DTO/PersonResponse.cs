@@ -1,4 +1,5 @@
 ﻿using Entities;
+using System.Net.Mail;
 
 namespace ServiceContracts.DTO
 {
@@ -9,10 +10,10 @@ namespace ServiceContracts.DTO
     {
         public Guid PersonId { get; set; }
         public string? Name { get; set; }
-        public string? Email { get; set; }
+        public MailAddress? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? Gender { get; set; }
-        public Guid? CountryId { get; set; }
+        public string? CountryName { get; set; }
         public string? Address { get; set; }
         public bool? ReceiveNewsletters { get; set; }
         public int? Age { get; set; }
@@ -32,7 +33,7 @@ namespace ServiceContracts.DTO
                            person.Name == Name &&
                            person.Email == Email &&
                            person.DateOfBirth == DateOfBirth &&
-                           person.CountryId == CountryId &&
+                           person.CountryName == CountryName &&
                            person.Address == Address &&
                            person.ReceiveNewsletters == ReceiveNewsletters;
 
@@ -56,7 +57,6 @@ namespace ServiceContracts.DTO
                 Email = person.Email,
                 DateOfBirth = person.DateOfBirth,
                 Gender = person.Gender,
-                CountryId = person.CountryId,
                 Address = person.Address,
                 ReceiveNewsletters = person.ReceiveNewsletters,
                 Age = (person.DateOfBirth != null) ? (int)Math.Round(DateTime.Now.Subtract(person.DateOfBirth.Value).TotalDays / 365.25) : null

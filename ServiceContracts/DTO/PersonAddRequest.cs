@@ -1,5 +1,6 @@
 ﻿using ServiceContracts.Enums;
 using Entities;
+using System.Net.Mail;
 
 namespace ServiceContracts.DTO
 {
@@ -9,7 +10,7 @@ namespace ServiceContracts.DTO
     public class PersonAddRequest
     {
         public string? Name { get; set; }
-        public string? Email { get; set; }
+        public MailAddress? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public GenderOption? Gender { get; set; }
         public Guid? CountryId { get; set; }

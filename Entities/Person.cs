@@ -1,4 +1,6 @@
-﻿namespace Entities
+﻿using System.Net.Mail;
+
+namespace Entities
 {
     /// <summary>
     /// Person domain model class
@@ -7,7 +9,7 @@
     {
         public Guid PersonId { get; set; }
         public string? Name { get; set; }
-        public string? Email { get; set; }
+        public MailAddress? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? Gender { get; set; }
         public Guid? CountryId { get; set; }
