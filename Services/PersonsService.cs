@@ -32,6 +32,11 @@ namespace Services
             throw new NotImplementedException();
         }
 
+        public PersonResponse GetPersonById(Guid? personId)
+        {
+            throw new NotImplementedException();
+        }
+
         private PersonResponse ConvertPersonToPersonResponse(Person person)
         {
             var personResponse = person.ToPersonResponse();
