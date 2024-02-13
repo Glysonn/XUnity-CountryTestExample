@@ -1,6 +1,7 @@
 ﻿using Entities;
 using ServiceContracts;
 using ServiceContracts.DTO;
+using Services.Helpers;
 
 namespace Services
 {
@@ -17,8 +18,8 @@ namespace Services
         public PersonResponse AddPerson(PersonAddRequest? personToAdd)
         {
             ArgumentNullException.ThrowIfNull(personToAdd, nameof(personToAdd));
-            ArgumentException.ThrowIfNullOrEmpty(personToAdd.Name, nameof(personToAdd.Name));
-
+            ValidationHelper.ModelValidation(personToAdd);
+            
             var person = personToAdd.ToPerson();
             person.PersonId = Guid.NewGuid();
 

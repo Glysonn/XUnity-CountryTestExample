@@ -1,6 +1,7 @@
 ﻿using ServiceContracts.Enums;
 using Entities;
 using System.Net.Mail;
+using System.ComponentModel.DataAnnotations;
 
 namespace ServiceContracts.DTO
 {
@@ -9,7 +10,9 @@ namespace ServiceContracts.DTO
     /// </summary>
     public class PersonAddRequest
     {
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Person Name can't be blank")]
         public string? Name { get; set; }
+
         public MailAddress? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public GenderOption? Gender { get; set; }
