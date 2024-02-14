@@ -19,7 +19,7 @@ namespace Services
         {
             ArgumentNullException.ThrowIfNull(personToAdd, nameof(personToAdd));
             ValidationHelper.ModelValidation(personToAdd);
-            
+
             var person = personToAdd.ToPerson();
             person.PersonId = Guid.NewGuid();
 
@@ -34,7 +34,8 @@ namespace Services
 
         public PersonResponse? GetPersonById(Guid? personId)
         {
-            throw new NotImplementedException();
+            var foundPerson = _personList?.Find(x => x.PersonId == personId);
+            return foundPerson?.ToPersonResponse();
         }
 
         private PersonResponse ConvertPersonToPersonResponse(Person person)
