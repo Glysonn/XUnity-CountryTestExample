@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System.Diagnostics.Contracts;
+using System.Net.Mail;
 
 namespace CRUDTests
 {
@@ -73,7 +74,72 @@ namespace CRUDTests
 
         #endregion
 
-        #region GetPersonById Method
+        #region GetPerson Methods
+        [Fact]
+        public void GetAllPersons_EmptyByDefault()
+        {
+            // Act
+            var personList = _personService.GetAllPersons();
+
+            // Assert
+            Assert.Empty(personList);
+        }
+
+        [Fact]
+        public void GetAllPersons_AddFewPersons()
+        {
+            // Arrange
+            var brazilCountryToAdd = new CountryAddRequest() { CountryName = "BRAZIL" };
+            var chinaCountryToAdd = new CountryAddRequest() { CountryName = "CHINA" };
+
+            var brazilCountry = _countryService.AddCountry(brazilCountryToAdd);
+            var chinaCountry = _countryService.AddCountry(chinaCountryToAdd);
+
+            var person1 = new PersonAddRequest()
+            {
+                Name = "Person 1",
+                Email = new MailAddress("person1@email.com"),
+                DateOfBirth = DateTime.Parse("2001-02-13"),
+                Gender = GenderOption.Male,
+                CountryId = brazilCountry.CountryId,
+                Address = "Address Example 01",
+                ReceiveNewsletters = true,
+            };
+            var person2 = new PersonAddRequest()
+            {
+                Name = "Person 2",
+                Email = new MailAddress("person2@email.com"),
+                DateOfBirth = DateTime.Parse("2003-07-23"),
+                Gender = GenderOption.Female,
+                CountryId = brazilCountry.CountryId,
+                Address = "Address Example 02",
+                ReceiveNewsletters = false,
+            };
+            var person3 = new PersonAddRequest()
+            {
+                Name = "Person 3",
+                Email = new MailAddress("person3@email.com"),
+                DateOfBirth = DateTime.Parse("2000-04-01"),
+                Gender = GenderOption.Others,
+                CountryId = chinaCountry.CountryId,
+                Address = "Address Example 03",
+                ReceiveNewsletters = false,
+            };
+
+            var addedPersonsList = new List<PersonResponse>();
+            var personsToAddList = new List<PersonAddRequest> { person1, person2, person3 };
+            foreach (var person in personsToAddList)
+            {
+                var addedPerson = _personService.AddPerson(person);
+                addedPersonsList.Add(addedPerson);
+            }
+
+            // Assert
+            var storedPersons = _personService.GetAllPersons();
+            foreach (var person in storedPersons)
+                Assert.Contains(person, storedPersons);
+        }
+
         [Fact]
         public void GetPersonById_NullPersonId()
         {
