@@ -32,7 +32,7 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public PersonResponse GetPersonById(Guid? personId)
+        public PersonResponse? GetPersonById(Guid? personId)
         {
             throw new NotImplementedException();
         }

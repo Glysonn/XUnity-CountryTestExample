@@ -25,6 +25,6 @@ namespace ServiceContracts
         /// </summary>
         /// <param name="personId">PersonId to find.</param>
         /// <returns>Returns the matching person object as a PersonResponse</returns>
-        PersonResponse GetPersonById(Guid? personId);
+        PersonResponse? GetPersonById(Guid? personId);
     }
 }
