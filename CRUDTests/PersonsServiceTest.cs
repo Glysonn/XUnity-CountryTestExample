@@ -7,10 +7,13 @@ namespace CRUDTests
     {
         private readonly IPersonService _personService;
         private readonly ICountryService _countryService;
-        public PersonsServiceTest()
+        private readonly ITestOutputHelper _outputHelper;
+
+        public PersonsServiceTest(ITestOutputHelper testOutputHelper)
         {
             _personService = new PersonsService();
             _countryService = new CountriesService();
+            _outputHelper = testOutputHelper;
         }
 
         #region AddPerson Method
@@ -134,10 +137,17 @@ namespace CRUDTests
                 addedPersonsList.Add(addedPerson);
             }
 
-            // Assert
+            _outputHelper.WriteLine("Expected value:");
+            addedPersonsList.ForEach(person => _outputHelper.WriteLine(person.ToString()));
+
+            // Act 
+            _outputHelper.WriteLine("Current value:");
             var storedPersons = _personService.GetAllPersons();
             foreach (var person in storedPersons)
+            {
+                _outputHelper.WriteLine(person.ToString());
                 Assert.Contains(person, storedPersons);
+            }
         }
 
         [Fact]

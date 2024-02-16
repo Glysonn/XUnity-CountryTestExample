@@ -1,5 +1,6 @@
 ﻿using Entities;
 using System.Net.Mail;
+using System.Text;
 
 namespace ServiceContracts.DTO
 {
@@ -38,6 +39,18 @@ namespace ServiceContracts.DTO
                            person.ReceiveNewsletters == ReceiveNewsletters;
 
             return isEquals;
+        }
+        public override string ToString()
+        {
+            var sb = new StringBuilder().Append($"ID: {PersonId}, ")
+                                        .Append($"Name: {Name}, ")
+                                        .Append($"Email: {Email?.Address}, ")
+                                        .Append($"Bith Date: {DateOfBirth:yyyy-MM-dd}, ")
+                                        .Append($"Age: {Age}, ")
+                                        .Append($"Gender: {Gender}, ")
+                                        .Append($"Country Name: {CountryName}, ")
+                                        .Append($"Recieve NewsLetter: {ReceiveNewsletters}");
+            return sb.ToString();
         }
     }
 
