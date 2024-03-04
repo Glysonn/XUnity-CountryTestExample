@@ -1,6 +1,4 @@
-﻿using CRUDTests.Helpers;
-using ServiceContracts.DTO.PersonDTO;
-using System.Diagnostics.Contracts;
+﻿using ServiceContracts.DTO.PersonDTO;
 using System.Net.Mail;
 
 namespace Tests.Person

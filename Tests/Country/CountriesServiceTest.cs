@@ -1,5 +1,4 @@
-﻿using ServiceContracts.DTO.Country;
-using ServiceContracts.DTO.CountryDTO;
+﻿using ServiceContracts.DTO.CountryDTO;
 
 namespace Tests.Country
 {

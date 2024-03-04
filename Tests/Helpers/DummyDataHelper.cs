@@ -1,5 +1,4 @@
-﻿using ServiceContracts;
-using ServiceContracts.DTO.Country;
+﻿using ServiceContracts.DTO.CountryDTO;
 using ServiceContracts.DTO.PersonDTO;
 using System.Net.Mail;
 
