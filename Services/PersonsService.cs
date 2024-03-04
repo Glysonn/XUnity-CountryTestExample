@@ -9,10 +9,10 @@ namespace Services
     {
         private readonly List<Person> _personList;
         private readonly ICountryService _countriesService;
-        public PersonsService()
+        public PersonsService(ICountryService countriesService)
         {
             _personList = [];
-            _countriesService = new CountriesService();
+            _countriesService = countriesService;
         }
 
         public PersonResponse AddPerson(PersonAddRequest? personToAdd)
@@ -29,14 +29,14 @@ namespace Services
 
         public List<PersonResponse> GetAllPersons()
         {
-            var personList = _personList.Select(x => x.ToPersonResponse()).ToList();
+            var personList = _personList.Select(x => ConvertPersonToPersonResponse(x)).ToList();
             return personList;
         }
 
         public PersonResponse? GetPersonById(Guid? personId)
         {
             var foundPerson = _personList?.Find(x => x.PersonId == personId);
-            return foundPerson?.ToPersonResponse();
+            return foundPerson is not null ? ConvertPersonToPersonResponse(foundPerson) : null;
         }
 
         public List<PersonResponse> GetFilteredPersons(string searchBy, string? searchString)

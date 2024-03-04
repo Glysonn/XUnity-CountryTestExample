@@ -46,15 +46,14 @@
         public void AddCountry_CountryNameAlreadyExists()
         {
             // Arrange
-            var countryRequest1 = new CountryAddRequest() { CountryName = "BRAZIL" };
-            var countryRequest2 = new CountryAddRequest() { CountryName = "BRAZIL" };
+            var countryRequest = DummyDataHelper.CreateAddDummyCountry();
 
             // Assert
             Assert.Throws<ArgumentException>(() =>
             {
                 // Act
-                _countryService.AddCountry(countryRequest1);
-                _countryService.AddCountry(countryRequest2);
+                _countryService.AddCountry(countryRequest);
+                _countryService.AddCountry(countryRequest);
             });
         }
 
@@ -62,7 +61,7 @@
         public void AddCountry_ProperCountryDetails()
         {
             // Arrange
-            var countryRequest = new CountryAddRequest() { CountryName = "BRAZIL" };
+            var countryRequest = DummyDataHelper.CreateAddDummyCountry();
 
             // Act
             var countryResponse = _countryService.AddCountry(countryRequest);
@@ -91,12 +90,7 @@
         public void GetAllCountries_AddFewCountries()
         {
             // Arrange
-            var countriesToAdd = new List<CountryAddRequest>()
-            {
-                new() { CountryName = "BRAZIL" },
-                new() { CountryName = "SINGAPORE"},
-                new() { CountryName = "CHINA"},
-            };
+            var countriesToAdd = DummyDataHelper.CreateAddDummyCountries();
 
             // Act
             var addedCountries = new List<CountryReponse>();
@@ -132,7 +126,7 @@
         public void GetCountryById_ValidCountryId()
         {
             // Arrange
-            var countryToAdd = new CountryAddRequest() { CountryName = "BRAZIL" };
+            var countryToAdd = DummyDataHelper.CreateAddDummyCountry();
             var countryResponse = _countryService.AddCountry(countryToAdd);
 
             // Act

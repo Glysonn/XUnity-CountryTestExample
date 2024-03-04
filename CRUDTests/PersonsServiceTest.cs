@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Contracts;
+﻿using CRUDTests.Helpers;
+using System.Diagnostics.Contracts;
 using System.Net.Mail;
 
 namespace CRUDTests
@@ -11,8 +12,8 @@ namespace CRUDTests
 
         public PersonsServiceTest(ITestOutputHelper testOutputHelper)
         {
-            _personService = new PersonsService();
             _countryService = new CountriesService();
+            _personService = new PersonsService(_countryService);
             _outputHelper = testOutputHelper;
         }
 
@@ -55,16 +56,7 @@ namespace CRUDTests
         public void AddPerson_ValidGivenPerson()
         {
             // Arrange
-            var personToAdd = new PersonAddRequest()
-            {
-                Name = "Example Person",
-                Email = new MailAddress("example@email.com"),
-                DateOfBirth = DateTime.Now,
-                Gender = GenderOption.Male,
-                CountryId = Guid.NewGuid(),
-                Address = "Example Address",
-                ReceiveNewsletters = true,
-            };
+            var personToAdd = DummyDataHelper.CreateAddDummyPerson();
 
             // Act
             var addedPerson = _personService.AddPerson(personToAdd);
@@ -92,61 +84,25 @@ namespace CRUDTests
         public void GetAllPersons_AddFewPersons()
         {
             // Arrange
-            var brazilCountryToAdd = new CountryAddRequest() { CountryName = "BRAZIL" };
-            var chinaCountryToAdd = new CountryAddRequest() { CountryName = "CHINA" };
-
-            var brazilCountry = _countryService.AddCountry(brazilCountryToAdd);
-            var chinaCountry = _countryService.AddCountry(chinaCountryToAdd);
-
-            var person1 = new PersonAddRequest()
-            {
-                Name = "Person 1",
-                Email = new MailAddress("person1@email.com"),
-                DateOfBirth = DateTime.Parse("2001-02-13"),
-                Gender = GenderOption.Male,
-                CountryId = brazilCountry.CountryId,
-                Address = "Address Example 01",
-                ReceiveNewsletters = true,
-            };
-            var person2 = new PersonAddRequest()
-            {
-                Name = "Person 2",
-                Email = new MailAddress("person2@email.com"),
-                DateOfBirth = DateTime.Parse("2003-07-23"),
-                Gender = GenderOption.Female,
-                CountryId = brazilCountry.CountryId,
-                Address = "Address Example 02",
-                ReceiveNewsletters = false,
-            };
-            var person3 = new PersonAddRequest()
-            {
-                Name = "Person 3",
-                Email = new MailAddress("person3@email.com"),
-                DateOfBirth = DateTime.Parse("2000-04-01"),
-                Gender = GenderOption.Others,
-                CountryId = chinaCountry.CountryId,
-                Address = "Address Example 03",
-                ReceiveNewsletters = false,
-            };
-
             var addedPersonsList = new List<PersonResponse>();
-            var personsToAddList = new List<PersonAddRequest> { person1, person2, person3 };
-            foreach (var person in personsToAddList)
-            {
-                var addedPerson = _personService.AddPerson(person);
-                addedPersonsList.Add(addedPerson);
-            }
 
             _outputHelper.WriteLine("Expected value:");
-            addedPersonsList.ForEach(person => _outputHelper.WriteLine(person.ToString()));
+            var personsToAdd = DummyDataHelper.CreateAddDummyPersonList();
+            foreach (var person in personsToAdd)
+            {
+                var addedPerson = _personService.AddPerson(person);
+                _outputHelper.WriteLine(addedPerson.ToString());
+
+                addedPersonsList.Add(addedPerson);
+            }
 
             // Act 
             _outputHelper.WriteLine("Current value:");
             var storedPersons = _personService.GetAllPersons();
-            foreach (var person in storedPersons)
+            foreach (var addedPerson in addedPersonsList)
             {
-                _outputHelper.WriteLine(person.ToString());
-                Assert.Contains(person, storedPersons);
+                _outputHelper.WriteLine(addedPerson.ToString());
+                Assert.Contains(addedPerson, storedPersons);
             }
         }
 
