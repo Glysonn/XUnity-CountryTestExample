@@ -17,7 +17,7 @@ namespace Services
 
         public PersonResponse AddPerson(PersonAddRequest? personToAdd)
         {
-            ArgumentNullException.ThrowIfNull(personToAdd, nameof(personToAdd));
+            ArgumentNullException.ThrowIfNull(personToAdd);
             ValidationHelper.ModelValidation(personToAdd);
 
             var person = personToAdd.ToPerson();

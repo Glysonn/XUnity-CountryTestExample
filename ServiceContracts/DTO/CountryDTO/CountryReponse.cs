@@ -1,4 +1,5 @@
 ﻿using Entities;
+using System.Runtime.CompilerServices;
 
 namespace ServiceContracts.DTO.CountryDTO
 {
@@ -11,6 +12,7 @@ namespace ServiceContracts.DTO.CountryDTO
         public string? CountryName { get; set; }
 
         // Overriding to compare only the value types instead of reference
+        public override int GetHashCode() => RuntimeHelpers.GetHashCode(this);
         public override bool Equals(object? obj)
         {
             if (obj is null || obj.GetType() != typeof(CountryReponse))
@@ -20,8 +22,6 @@ namespace ServiceContracts.DTO.CountryDTO
             return CountryId == countryObj?.CountryId
                 && CountryName == countryObj.CountryName;
         }
-
-        public override int GetHashCode() => base.GetHashCode();
     }
 
     public static class CountryExtensions

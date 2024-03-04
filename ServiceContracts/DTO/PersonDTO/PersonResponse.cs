@@ -1,5 +1,6 @@
 ﻿using Entities;
 using System.Net.Mail;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace ServiceContracts.DTO.PersonDTO
@@ -19,7 +20,8 @@ namespace ServiceContracts.DTO.PersonDTO
         public bool? ReceiveNewsletters { get; set; }
         public int? Age { get; set; }
 
-        public override int GetHashCode() => base.GetHashCode();
+        // Overriding to compare only the value types instead of reference
+        public override int GetHashCode() => RuntimeHelpers.GetHashCode(this);
         public override bool Equals(object? obj)
         {
             if (obj is null)
@@ -63,6 +65,7 @@ namespace ServiceContracts.DTO.PersonDTO
         /// <returns>Converted Person as PersonResponse object</returns>
         public static PersonResponse ToPersonResponse(this Person person)
         {
+            var currentTime = DateTime.Now;
             var personResponse = new PersonResponse()
             {
                 PersonId = person.PersonId,
@@ -72,7 +75,7 @@ namespace ServiceContracts.DTO.PersonDTO
                 Gender = person.Gender,
                 Address = person.Address,
                 ReceiveNewsletters = person.ReceiveNewsletters,
-                Age = person.DateOfBirth != null ? (int)Math.Round(DateTime.Now.Subtract(person.DateOfBirth.Value).TotalDays / 365.25) : null
+                Age = person.DateOfBirth != null ? (int)Math.Round(currentTime.Subtract(person.DateOfBirth.Value).TotalDays / 365.25) : null
             };
 
             return personResponse;

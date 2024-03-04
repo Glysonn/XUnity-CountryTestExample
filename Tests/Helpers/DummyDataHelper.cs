@@ -1,5 +1,6 @@
 ﻿using ServiceContracts.DTO.CountryDTO;
 using ServiceContracts.DTO.PersonDTO;
+using System.Globalization;
 using System.Net.Mail;
 
 namespace CRUDTests.Helpers
@@ -37,7 +38,7 @@ namespace CRUDTests.Helpers
             {
                 Name = "Person 1",
                 Email = new MailAddress("person1@email.com"),
-                DateOfBirth = DateTime.Parse("2001-02-13"),
+                DateOfBirth = DateTime.Parse("2001-02-13", CultureInfo.InvariantCulture),
                 Gender = GenderOption.Male,
                 CountryId = brazilCountry.CountryId,
                 Address = "Address Example 01",
@@ -47,7 +48,7 @@ namespace CRUDTests.Helpers
             {
                 Name = "Person 2",
                 Email = new MailAddress("person2@email.com"),
-                DateOfBirth = DateTime.Parse("2003-07-23"),
+                DateOfBirth = DateTime.Parse("2003-07-23", CultureInfo.InvariantCulture),
                 Gender = GenderOption.Female,
                 CountryId = brazilCountry.CountryId,
                 Address = "Address Example 02",
@@ -57,7 +58,7 @@ namespace CRUDTests.Helpers
             {
                 Name = "Person 3",
                 Email = new MailAddress("person3@email.com"),
-                DateOfBirth = DateTime.Parse("2000-04-01"),
+                DateOfBirth = DateTime.Parse("2000-04-01", CultureInfo.InvariantCulture),
                 Gender = GenderOption.Others,
                 CountryId = chinaCountry.CountryId,
                 Address = "Address Example 03",
