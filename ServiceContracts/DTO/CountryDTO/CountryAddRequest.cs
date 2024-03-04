@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Entities;
+﻿using Entities;
 
-namespace ServiceContracts.DTO
+namespace ServiceContracts.DTO.CountryDTO
 {
     /// <summary>
     /// DTO class for adding a new country

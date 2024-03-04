@@ -1,6 +1,6 @@
 ﻿using Entities;
 using ServiceContracts;
-using ServiceContracts.DTO;
+using ServiceContracts.DTO.CountryDTO;
 
 namespace Services
 {
@@ -13,8 +13,8 @@ namespace Services
         }
         public CountryReponse AddCountry(CountryAddRequest? countryAddRequest)
         {
-            ArgumentNullException.ThrowIfNull(countryAddRequest, nameof(countryAddRequest));
-            ArgumentNullException.ThrowIfNull(countryAddRequest.CountryName, nameof(countryAddRequest.CountryName));
+            ArgumentNullException.ThrowIfNull(countryAddRequest);
+            ArgumentNullException.ThrowIfNull(countryAddRequest.CountryName);
 
             if (_countries.Exists(x => x.CountryName == countryAddRequest.CountryName))
                 throw new ArgumentException(nameof(countryAddRequest.CountryName));

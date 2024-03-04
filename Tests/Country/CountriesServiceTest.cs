@@ -1,8 +1,6 @@
-﻿using ServiceContracts;
-using ServiceContracts.DTO;
-using Services;
+﻿using ServiceContracts.DTO.CountryDTO;
 
-namespace CRUDTests
+namespace Tests.Country
 {
     public class CountriesServiceTest
     {
@@ -50,15 +48,14 @@ namespace CRUDTests
         public void AddCountry_CountryNameAlreadyExists()
         {
             // Arrange
-            var countryRequest1 = new CountryAddRequest() { CountryName = "BRAZIL" };
-            var countryRequest2 = new CountryAddRequest() { CountryName = "BRAZIL" };
+            var countryRequest = DummyDataHelper.CreateAddDummyCountry();
 
             // Assert
             Assert.Throws<ArgumentException>(() =>
             {
                 // Act
-                _countryService.AddCountry(countryRequest1);
-                _countryService.AddCountry(countryRequest2);
+                _countryService.AddCountry(countryRequest);
+                _countryService.AddCountry(countryRequest);
             });
         }
 
@@ -66,7 +63,7 @@ namespace CRUDTests
         public void AddCountry_ProperCountryDetails()
         {
             // Arrange
-            var countryRequest = new CountryAddRequest() { CountryName = "BRAZIL" };
+            var countryRequest = DummyDataHelper.CreateAddDummyCountry();
 
             // Act
             var countryResponse = _countryService.AddCountry(countryRequest);
@@ -95,16 +92,11 @@ namespace CRUDTests
         public void GetAllCountries_AddFewCountries()
         {
             // Arrange
-            var countriesToAdd = new List<CountryAddRequest>()
-            {
-                new() { CountryName = "BRAZIL" },
-                new() { CountryName = "SINGAPORE"},
-                new() { CountryName = "CHINA"},
-            };
+            var countriesToAdd = DummyDataHelper.CreateAddDummyCountries();
 
             // Act
             var addedCountries = new List<CountryReponse>();
-            
+
             foreach (var country in countriesToAdd)
                 addedCountries.Add(_countryService.AddCountry(country));
 
@@ -112,7 +104,7 @@ namespace CRUDTests
             var countryList = _countryService.GetAllCountries();
             Assert.All(addedCountries, country => Assert.Contains(country, countryList));
         }
-      
+
         #endregion
 
         #region GetCountryById
@@ -122,7 +114,7 @@ namespace CRUDTests
             // Arrange
             Guid? countryId = null;
             var emptyCountryId = Guid.Empty;
-            
+
             // Act
             var retrievedCountry = _countryService.GetCountryById(countryId);
             var emptyGuidretrievedCountry = _countryService.GetCountryById(emptyCountryId);
@@ -136,7 +128,7 @@ namespace CRUDTests
         public void GetCountryById_ValidCountryId()
         {
             // Arrange
-            var countryToAdd = new CountryAddRequest() { CountryName = "BRAZIL" };
+            var countryToAdd = DummyDataHelper.CreateAddDummyCountry();
             var countryResponse = _countryService.AddCountry(countryToAdd);
 
             // Act

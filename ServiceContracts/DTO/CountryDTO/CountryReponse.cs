@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Entities;
+﻿using Entities;
+using System.Runtime.CompilerServices;
 
-namespace ServiceContracts.DTO
+namespace ServiceContracts.DTO.CountryDTO
 {
     /// <summary>
     /// DTO class used as return of CountryService methods
@@ -13,6 +12,7 @@ namespace ServiceContracts.DTO
         public string? CountryName { get; set; }
 
         // Overriding to compare only the value types instead of reference
+        public override int GetHashCode() => RuntimeHelpers.GetHashCode(this);
         public override bool Equals(object? obj)
         {
             if (obj is null || obj.GetType() != typeof(CountryReponse))
@@ -22,16 +22,17 @@ namespace ServiceContracts.DTO
             return CountryId == countryObj?.CountryId
                 && CountryName == countryObj.CountryName;
         }
-
-        public override int GetHashCode() => base.GetHashCode();
     }
 
     public static class CountryExtensions
     {
         public static CountryReponse ToCountryResponse(this Country country)
         {
-            return new CountryReponse() { CountryId = country.CountryId,
-                                          CountryName = country.CountryName};
+            return new CountryReponse()
+            {
+                CountryId = country.CountryId,
+                CountryName = country.CountryName
+            };
         }
     }
 }
