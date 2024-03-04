@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 using System.Net.Mail;
 
-namespace CRUDTests
+namespace Tests.Person
 {
     public class PersonsServiceTest
     {

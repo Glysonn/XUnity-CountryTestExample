@@ -1,4 +1,4 @@
-﻿namespace CRUDTests
+﻿namespace Tests.Country
 {
     public class CountriesServiceTest
     {
@@ -94,7 +94,7 @@
 
             // Act
             var addedCountries = new List<CountryReponse>();
-            
+
             foreach (var country in countriesToAdd)
                 addedCountries.Add(_countryService.AddCountry(country));
 
@@ -102,7 +102,7 @@
             var countryList = _countryService.GetAllCountries();
             Assert.All(addedCountries, country => Assert.Contains(country, countryList));
         }
-      
+
         #endregion
 
         #region GetCountryById
@@ -112,7 +112,7 @@
             // Arrange
             Guid? countryId = null;
             var emptyCountryId = Guid.Empty;
-            
+
             // Act
             var retrievedCountry = _countryService.GetCountryById(countryId);
             var emptyGuidretrievedCountry = _countryService.GetCountryById(emptyCountryId);
