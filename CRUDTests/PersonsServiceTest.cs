@@ -123,22 +123,9 @@ namespace CRUDTests
         public void GetPersonById_ValidPersonId()
         {
             // Arrange
-            // Getting a country object so its CountryId can be used to create a PersonAddRequest object
-            var countryToAdd = new CountryAddRequest() { CountryName = "BRAZIL" };
-            var country = _countryService.AddCountry(countryToAdd);
+            var personToAdd = DummyDataHelper.CreateAddDummyPerson();
 
             // Act
-            var personToAdd = new PersonAddRequest()
-            {
-                Name = "Example Person",
-                Address = "Example Address",
-                Email = new MailAddress("example@email.com"),
-                CountryId = country.CountryId,
-                DateOfBirth = DateTime.Now,
-                Gender = GenderOption.Male,
-                ReceiveNewsletters = true,
-            };
-
             var person = _personService.AddPerson(personToAdd);
             var storedPerson = _personService.GetPersonById(person.PersonId);
 
