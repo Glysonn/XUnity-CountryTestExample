@@ -1,4 +1,5 @@
 ﻿using CRUDTests.Helpers;
+using ServiceContracts.DTO.PersonDTO;
 using System.Diagnostics.Contracts;
 using System.Net.Mail;
 

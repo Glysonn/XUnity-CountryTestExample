@@ -2,7 +2,7 @@
 using System.Net.Mail;
 using System.Text;
 
-namespace ServiceContracts.DTO
+namespace ServiceContracts.DTO.PersonDTO
 {
     /// <summary>
     /// DTO class used as return of CountryService methods.
@@ -72,7 +72,7 @@ namespace ServiceContracts.DTO
                 Gender = person.Gender,
                 Address = person.Address,
                 ReceiveNewsletters = person.ReceiveNewsletters,
-                Age = (person.DateOfBirth != null) ? (int)Math.Round(DateTime.Now.Subtract(person.DateOfBirth.Value).TotalDays / 365.25) : null
+                Age = person.DateOfBirth != null ? (int)Math.Round(DateTime.Now.Subtract(person.DateOfBirth.Value).TotalDays / 365.25) : null
             };
 
             return personResponse;

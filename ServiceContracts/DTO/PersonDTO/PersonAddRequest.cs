@@ -3,7 +3,7 @@ using Entities;
 using System.Net.Mail;
 using System.ComponentModel.DataAnnotations;
 
-namespace ServiceContracts.DTO
+namespace ServiceContracts.DTO.PersonDTO
 {
     /// <summary>
     /// DTO class for adding a new Person.
