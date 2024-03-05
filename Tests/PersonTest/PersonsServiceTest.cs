@@ -1,7 +1,7 @@
 ﻿using ServiceContracts.DTO.PersonDTO;
 using System.Net.Mail;
 
-namespace Tests.Person
+namespace Tests.PersonTest
 {
     public class PersonsServiceTest
     {

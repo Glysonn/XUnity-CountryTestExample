@@ -1,6 +1,6 @@
 ﻿using ServiceContracts.DTO.CountryDTO;
 
-namespace Tests.Country
+namespace Tests.CountryTest
 {
     public class CountriesServiceTest
     {
