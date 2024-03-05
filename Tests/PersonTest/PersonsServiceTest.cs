@@ -1,5 +1,6 @@
 ﻿using ServiceContracts.DTO.PersonDTO;
 using System.Net.Mail;
+using Entities;
 
 namespace Tests.PersonTest
 {
@@ -131,6 +132,55 @@ namespace Tests.PersonTest
             // Assert
             Assert.Equal(person, storedPerson);
         }
+
+        [Fact]
+        public void GetFilteredPersons_SearchByNameAndEmptySearchText()
+        {
+            // Arrange
+            var addedPersonsList = DummyDataHelper.CreateAddDummyPersonList()
+                                                  .Select(person => _personService.AddPerson(person))
+                                                  .ToList();
+
+            _outputHelper.WriteLine("Expected value:");
+            addedPersonsList.ForEach(person => _outputHelper.WriteLine(person.ToString()));
+
+            // Act 
+            _outputHelper.WriteLine("Current value:");
+            var matchingPersons = _personService.GetFilteredPersons(nameof(Person.Name), string.Empty);
+            foreach (var person in matchingPersons)
+            {
+                _outputHelper.WriteLine(person.ToString());
+                Assert.Contains(person, addedPersonsList);
+            }
+        }
+
+        [Fact]
+        public void GetFilteredPersons_SearchByNameWithSearchText()
+        {
+            // arrange
+            var addedPersonsList = DummyDataHelper.CreateAddDummyPersonList()
+                                                  .Select(person => _personService.AddPerson(person))
+                                                  .ToList();
+
+            _outputHelper.WriteLine("Expected value:");
+            addedPersonsList.ForEach(person => _outputHelper.WriteLine(person.ToString()));
+
+            // Act
+            _outputHelper.WriteLine("Current value:");
+            var storedPersons = _personService.GetFilteredPersons(nameof(Person.Name), "pers");
+            foreach (var person in storedPersons)
+            {
+                if (person.Name is null)
+                    continue;
+
+                if (person.Name.Contains("pers", StringComparison.OrdinalIgnoreCase))
+                {
+                    _outputHelper.WriteLine(person.ToString());
+                    Assert.Contains(person, addedPersonsList);
+                }
+            }
+        }
+
         #endregion
     }
 }

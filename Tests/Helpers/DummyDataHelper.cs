@@ -3,7 +3,7 @@ using ServiceContracts.DTO.PersonDTO;
 using System.Globalization;
 using System.Net.Mail;
 
-namespace CRUDTests.Helpers
+namespace Tests.Helpers
 {
     internal static class DummyDataHelper
     {
