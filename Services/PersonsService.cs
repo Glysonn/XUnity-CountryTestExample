@@ -41,7 +41,16 @@ namespace Services
 
         public List<PersonResponse> GetFilteredPersons(string searchBy, string? searchString)
         {
-            throw new NotImplementedException();
+            var searchFilter = typeof(Person).GetProperty(searchBy);
+            if (string.IsNullOrEmpty(searchString) || searchFilter == null)
+                return GetAllPersons();
+
+            var propertyValue = (Person person) => searchFilter.GetValue(person)?.ToString() ?? "";
+         
+            var matchingPersons = _personList.FindAll(person => propertyValue(person).Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                                             .Select(ConvertPersonToPersonResponse)
+                                             .ToList();
+            return matchingPersons;
         }
 
         private PersonResponse ConvertPersonToPersonResponse(Person person)

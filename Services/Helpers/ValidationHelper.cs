@@ -2,7 +2,7 @@
 
 namespace Services.Helpers
 {
-    public class ValidationHelper
+    public static class ValidationHelper
     {
         internal static void ModelValidation(object obj)
         {
